@@ -9,8 +9,8 @@ router = APIRouter(
 )
 
 
-@router.get("/", summary="Health Check")
-async def health_check():
+@router.get("/check", summary="Health Check")
+def health_check():
     """
     Health check endpoint to verify if the API is running.
     """
