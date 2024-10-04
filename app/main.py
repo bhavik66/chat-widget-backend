@@ -21,7 +21,7 @@ app = FastAPI(
 origins = [
     "http://localhost",  # Allow localhost for development
     "http://localhost:5173",  # Allow frontend apps running on a different port (e.g., Vite or other dev tools)
-    "https://artisan-demo.iambhavik.com",
+    "http://0.0.0.0:8001",
     # Add other origins as needed, such as your production frontend URL
 ]
 
