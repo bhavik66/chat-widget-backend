@@ -43,7 +43,7 @@ app.include_router(health.router)    # Include the health check routes
 app.mount('/', app=websocket.sio_app)
 
 # Entry point for running the application if executed directly
-if __name__ == '__main__':
-    # Use Uvicorn, an ASGI server, to run the FastAPI app. The `reload=True` option enables auto-reloading
-    # when changes are made to the code (useful during development).
-    uvicorn.run('app.main:app', reload=True)
+# if __name__ == '__main__':
+#     # Use Uvicorn, an ASGI server, to run the FastAPI app. The `reload=True` option enables auto-reloading
+#     # when changes are made to the code (useful during development).
+#     uvicorn.run('app.main:app', reload=True)
