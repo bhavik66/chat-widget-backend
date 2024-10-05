@@ -1,4 +1,3 @@
-
 # FastAPI Chatbot API
 
 This project is a FastAPI-based chatbot API that supports both REST and WebSocket communication. The API allows users to create conversations, send messages, and retrieve conversations or messages with pagination support. It is designed to handle chat-based interactions and can be extended with AI or other processing mechanisms.
@@ -9,6 +8,7 @@ This project is a FastAPI-based chatbot API that supports both REST and WebSocke
 - **Message Pagination** for efficient data retrieval
 - **SQLite** as the default database (can be easily swapped with other databases)
 - **Cross-Origin Resource Sharing (CORS)** for handling requests from external domains
+- **Alembic** for database migrations
 
 ## Project Structure
 ```
@@ -24,6 +24,7 @@ app/
 │   ├── websocket.py  # WebSocket routes for real-time chat
 ├── utils/
 │   ├── chatbot_logic.py   # Chat bot logic for AI reply
+├── migrations/       # Alembic migrations folder (generated with `alembic init`)
 └── db/
     └── chatbot.db    # SQLite database file (auto-created)
 ```
@@ -35,6 +36,7 @@ app/
 - SQLAlchemy
 - SQLite (default)
 - Uvicorn (for running the ASGI app)
+- Alembic (for database migrations)
 
 ## Installation
 
@@ -51,7 +53,20 @@ app/
    pip install -r requirements.txt
    ```
 
-3. Run the application:
+3. Initialize the Alembic configuration for database migrations:
+
+   ```bash
+   alembic init migrations
+   ```
+
+4. Run the first migration to set up the database schema:
+
+   ```bash
+   alembic revision --autogenerate -m "Initial migration"
+   alembic upgrade head
+   ```
+
+5. Run the application:
 
    ```bash
    uvicorn app.main:app --reload
@@ -125,6 +140,28 @@ pip install psycopg2  # for PostgreSQL
 pip install pymysql   # for MySQL
 ```
 
+### Using Alembic for Database Migrations
+
+Alembic is used for handling database schema changes. To apply migrations after modifying the SQLAlchemy models:
+
+1. **Generate a new migration script** after making changes to the models:
+
+   ```bash
+   alembic revision --autogenerate -m "Describe your change"
+   ```
+
+2. **Apply the migration** to the database:
+
+   ```bash
+   alembic upgrade head
+   ```
+
+3. **Downgrade** to a previous migration if necessary:
+
+   ```bash
+   alembic downgrade -1
+   ```
+
 ## Detailed Explanation of Code
 
 ### 1. **`main.py`**
@@ -183,4 +220,4 @@ pip install gunicorn
 gunicorn -k uvicorn.workers.UvicornWorker app.main:app
 ```
 
-Also, for production, you should replace SQLite with a more scalable database like PostgreSQL or MySQL, and implement proper database migrations using a tool like Alembic.
+Also, for production, you should replace SQLite with a more scalable database like PostgreSQL or MySQL, and implement proper database migrations using Alembic as described above.
