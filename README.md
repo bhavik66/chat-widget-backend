@@ -12,6 +12,10 @@ This project is a FastAPI-based chatbot API that supports both REST and WebSocke
 
 ## Project Structure
 ```
+alembic/
+│
+└── versions/       # Alembic migrations folder (generated with `alembic init`)
+
 app/
 │
 ├── main.py           # Entry point for the FastAPI application
@@ -22,11 +26,12 @@ app/
 │   ├── messages.py   # Routes for handling conversations and messages
 │   ├── health.py     # Health check routes
 │   ├── websocket.py  # WebSocket routes for real-time chat
-├── utils/
-│   ├── chatbot_logic.py   # Chat bot logic for AI reply
-├── migrations/       # Alembic migrations folder (generated with `alembic init`)
-└── db/
-    └── chatbot.db    # SQLite database file (auto-created)
+└── utils/
+     └── chatbot_logic.py   # Chat bot logic for AI reply
+
+db/
+│
+└── chatbot.db    # SQLite database file (auto-created)
 ```
 
 ## Requirements
