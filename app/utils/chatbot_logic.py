@@ -10,7 +10,7 @@ load_dotenv()
 google_api_key = os.getenv("GOOGLE_API_KEY")
 
 # Create an instance of the LLM, using the 'gemini-pro' model with a specified creativity level
-llm = ChatGoogleGenerativeAI(model='gemini-1.5-flash', temperature=0.9, api_key=google_api_key)
+llm = ChatGoogleGenerativeAI(model='gemini-pro', temperature=0.9, api_key=google_api_key)
 
 # # Set up conversation memory to track the state of the conversation
 # memory = ConversationBufferMemory(memory_key="chat_history")
