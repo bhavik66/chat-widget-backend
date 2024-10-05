@@ -13,7 +13,7 @@ llm = ChatGoogleGenerativeAI(model='gemini-1.5-flash', temperature=0.9, api_key=
 
 # Set up a prompt template
 prompt = PromptTemplate.from_template('''
-Consider your self as chatbot for support, Give them answer in plain text for {user_message}
+Consider your self as chatbot for support, Give them answer in plain text under 250 character for {user_message}
 ''')
 chain = LLMChain(llm=llm, prompt=prompt, verbose=True)
 
