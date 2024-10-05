@@ -35,7 +35,7 @@ class Message(MessageBase):
 
     # Config class to allow Pydantic to work with ORM objects (SQLAlchemy models)
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 # Base schema for conversations, shared across various conversation-related schemas
@@ -56,7 +56,7 @@ class Conversation(ConversationBase):
 
     # Config class to allow Pydantic to work with ORM objects (SQLAlchemy models)
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 # Schema for paginating messages in a conversation

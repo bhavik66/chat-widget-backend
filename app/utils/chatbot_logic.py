@@ -9,10 +9,12 @@ load_dotenv()
 google_api_key = os.getenv("GOOGLE_API_KEY")
 
 # Create an instance of the LLM, using the 'gemini-pro' model with a specified creativity level
-llm = ChatGoogleGenerativeAI(model='gemini-pro', temperature=0.9, api_key=google_api_key)
+llm = ChatGoogleGenerativeAI(model='gemini-1.5-flash', temperature=0.9, api_key=google_api_key)
 
 # Set up a prompt template
-prompt = PromptTemplate.from_template('You are a content creator. Write me a tweet about {topic}')
+prompt = PromptTemplate.from_template('''
+Consider your self as chatbot for support, Give them answer in plain text for {user_message}
+''')
 chain = LLMChain(llm=llm, prompt=prompt, verbose=True)
 
 
