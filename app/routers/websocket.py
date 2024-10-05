@@ -137,9 +137,21 @@ async def send_message(sid, data):
             skip_sid=None  # Notify all including AI if needed
         )
 
+        await asyncio.sleep(0.2)
+
+        messages = (
+            db.query(models.Message)
+            .filter(models.Message.conversation_id == conversation_id)
+            .order_by(models.Message.created_at.desc())
+            .offset(1)
+            .limit(50)
+            .all()
+        )
+
+        messages.reverse()
+
         # Generate AI response (simulate delay for typing effect)
-        ai_response = await asyncio.to_thread(generate_ai_response, content)
-        await asyncio.sleep(1)  # Simulate typing delay
+        ai_response = await asyncio.to_thread(generate_ai_response, content, messages)
 
         # Create and save AI message
         ai_message = models.Message(
@@ -169,6 +181,7 @@ async def send_message(sid, data):
             room=conversation_id
         )
         print(f"Broadcasted AI message in conversation {conversation_id}")
+        await asyncio.sleep(0.2)
 
     except Exception as e:
         print(f"Error handling message from {sid}: {e}")
